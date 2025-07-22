@@ -8,7 +8,7 @@
     "sign_up_link": "Sign up"
   },
   "BaseTemplate": {
-    "description": "Starter code for your Nextjs Boilerplate with Tailwind CSS",
+    "description": "image management system",
     "made_with": "Made with <author></author>."
   },
   "Index": {
@@ -71,5 +71,8 @@
     "dashboard_link": "Dashboard",
     "user_profile_link": "Manage your account",
     "sign_out": "Sign out"
+  },
+  "ImageUpload": {
+    "meta_title": "Image upload"
   }
 }

@@ -9,6 +9,17 @@ const baseConfig: NextConfig = {
   eslint: {
     dirs: ['.'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'gbxdqdozmxvdsinkgrrl.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/images/**',
+        search: '',
+      },
+    ],
+  },
   poweredByHeader: false,
   reactStrictMode: true,
   serverExternalPackages: ['@electric-sql/pglite'],

@@ -1,4 +1,11 @@
-import { integer, pgTable, serial, timestamp } from 'drizzle-orm/pg-core';
+import {
+  integer,
+  pgTable,
+  serial,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core';
 
 // This file defines the structure of your database tables using the Drizzle ORM.
 
@@ -20,5 +27,13 @@ export const counterSchema = pgTable('counter', {
     .defaultNow()
     .$onUpdate(() => new Date())
     .notNull(),
+  createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
+});
+
+export const imagesSchema = pgTable('images', {
+  id: serial('id').primaryKey(),
+  userId: varchar('user_id', { length: 256 }).notNull(),
+  url: text('url').notNull(),
+  path: text('path').notNull(), // The path to the file in Supabase Storage
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
 });
