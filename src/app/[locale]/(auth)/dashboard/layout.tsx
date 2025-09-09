@@ -21,7 +21,7 @@ export default async function DashboardLayout(props: {
         <>
           <li>
             <Link
-              href="/image/upload/"
+              href="/"
               className="border-none text-gray-700 hover:text-gray-900"
             >
               Upload Image
@@ -29,7 +29,7 @@ export default async function DashboardLayout(props: {
           </li>
           <li>
             <Link
-              href="/image/management/"
+              href="/management"
               className="border-none text-gray-700 hover:text-gray-900"
             >
               Image Management
@@ -38,7 +38,7 @@ export default async function DashboardLayout(props: {
           <li>
             <Link
               href="/dashboard/user-profile/"
-              className="border-none text-gray-700 hover:text-gray-900"
+              className="border-none cursor-pointer text-gray-700 hover:text-gray-900"
             >
               {t('user_profile_link')}
             </Link>
@@ -49,7 +49,7 @@ export default async function DashboardLayout(props: {
         <>
           <li>
             <SignOutButton>
-              <button className="border-none text-gray-700 hover:text-gray-900" type="button">
+              <button className="border-none cursor-pointer text-gray-700 hover:text-gray-900" type="button">
                 {t('sign_out')}
               </button>
             </SignOutButton>

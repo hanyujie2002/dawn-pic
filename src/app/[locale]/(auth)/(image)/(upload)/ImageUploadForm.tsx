@@ -1,18 +1,26 @@
 'use client';
 
 import type { ChangeEvent, DragEvent } from 'react';
+import { useAuth } from '@clerk/nextjs';
 import { Image as ImageIcon, Upload, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { uploadImage } from '@/app/actions/uploadActions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-export function ImageUploadForm() {
+type ImageUploadFormProps = {
+  locale: string;
+};
+
+export function ImageUploadForm({ locale }: ImageUploadFormProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
 
   const previewUrl = selectedFile ? URL.createObjectURL(selectedFile) : null;
 
@@ -69,6 +77,10 @@ export function ImageUploadForm() {
     e.preventDefault();
     if (!selectedFile) {
       return;
+    }
+
+    if (!isSignedIn) {
+      router.push(`${locale}/sign-in`);
     }
 
     setIsUploading(true);
@@ -180,7 +192,7 @@ export function ImageUploadForm() {
           <Button
             type="submit"
             disabled={isUploading}
-            className="px-8 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+            className="px-8 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
           >
             {isUploading
               ? (

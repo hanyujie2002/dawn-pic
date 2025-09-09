@@ -1,4 +1,5 @@
-import { SignOutButton } from '@clerk/nextjs';
+import { SignInButton, SignOutButton } from '@clerk/nextjs';
+import { auth } from '@clerk/nextjs/server';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Link from 'next/link';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
@@ -9,6 +10,8 @@ export default async function DashboardLayout(props: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await props.params;
+  const { userId } = await auth();
+
   setRequestLocale(locale);
   const t = await getTranslations({
     locale,
@@ -21,7 +24,7 @@ export default async function DashboardLayout(props: {
         <>
           <li>
             <Link
-              href="/image/upload/"
+              href="/"
               className="border-none text-gray-700 hover:text-gray-900"
             >
               Upload Image
@@ -29,7 +32,7 @@ export default async function DashboardLayout(props: {
           </li>
           <li>
             <Link
-              href="/image/management/"
+              href="/management/"
               className="border-none text-gray-700 hover:text-gray-900"
             >
               Image Management
@@ -48,11 +51,22 @@ export default async function DashboardLayout(props: {
       rightNav={(
         <>
           <li>
-            <SignOutButton>
-              <button className="border-none text-gray-700 hover:text-gray-900" type="button">
-                {t('sign_out')}
-              </button>
-            </SignOutButton>
+            {userId
+              ? (
+                  <SignOutButton>
+                    <button className="border-none text-gray-700 cursor-pointer hover:text-gray-900" type="button">
+                      {t('sign_out')}
+                    </button>
+                  </SignOutButton>
+
+                )
+              : (
+                  <SignInButton>
+                    <button className="border-none text-gray-700 cursor-pointer hover:text-gray-900" type="button">
+                      sign in
+                    </button>
+                  </SignInButton>
+                )}
           </li>
 
           <li>

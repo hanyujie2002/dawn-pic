@@ -2,6 +2,7 @@ import { currentUser } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import { deleteImage } from '@/app/actions/deleteActions';
 import { db } from '@/libs/DB';
 import { imagesSchema } from '@/models/Schema';
@@ -29,11 +30,12 @@ export default async function ImageManagementPage(props: IImageManagementPagePro
   setRequestLocale(locale);
 
   if (!user) {
-    return (
-      <div className="my-6">
-        <p>Please log in to upload images.</p>
-      </div>
-    );
+    redirect(`/${locale}/sign-in`);
+    // return (
+    //   <div className="my-6">
+    //     <p>Please log in to upload images.</p>
+    //   </div>
+    // );
   }
 
   // Fetch user's uploaded images
